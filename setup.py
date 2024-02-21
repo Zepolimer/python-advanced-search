@@ -17,7 +17,7 @@ setuptools.setup(
     description="Python open-source package : advanced queries for search-engines (Google, Bing)",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/python-advanced-search",
+    url="https://github.com/Zepolimer/python-advanced-search",
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
