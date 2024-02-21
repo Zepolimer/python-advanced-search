@@ -7,6 +7,18 @@ from python_advanced_search.models.commands import (
     FiletypeCommand,
 )
 
+from python_advanced_search.google.commands import (
+    AllInTitleCommand,
+    InTextCommand,
+    AllInTextCommand,
+    InUrlCommand,
+    AllInUrlCommand,
+    InAnchorCommand,
+    AllInAnchorCommand,
+    RelatedCommand,
+    DefineCommand
+)
+
 
 class Query:
     """
