@@ -18,6 +18,14 @@ from python_advanced_search.google.commands import (
     RelatedCommand,
     DefineCommand
 )
+from python_advanced_search.bing.commands import (
+    IndexedUrlCommand,
+    InTextCommand,
+    LocationCommand,
+    LanguageCommand,
+    LinkFromDomainCommand,
+    LinkDomainCommand
+)
 
 
 class Query:
