@@ -1,7 +1,8 @@
 class Operator:
     """
-    :param str name: search engine operator
-    :param bool exclude: False by default, if True add a '-' before <name>
+    Base Operator
+        :param str name: search engine operator
+        :param bool exclude: False by default, if True add a '-' before <name>
     """
 
     def __init__(self, name, exclude=False):
