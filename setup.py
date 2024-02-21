@@ -14,7 +14,7 @@ setuptools.setup(
     version='0.0.1',
     author="Rémi Lopez",
     author_email="contact.remilopez@gmail.com",
-    description="Open-source advanced-search for search-engines Google and Bing",
+    description="Python open-source package : advanced queries for search-engines (Google, Bing)",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/python-advanced-search",
