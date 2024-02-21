@@ -20,6 +20,59 @@ pip3 install -I dist/python_advanced_search-*-py3-none-any.whl
 ```
 <br/>
 
+
+## Use cases
+You can use search method with common operators and specific for each search-engine.  
+Your query can be combined with exclude method to add a minus in front of an operator or expression.  
+You can use OR, AND, NOT classes which allows you to perform conditional query.
+
+<br/>
+
+#### Google (many params available on search and exclude methods)
+```python
+from python_advanced_search.google.query import GoogleQuery
+
+query = GoogleQuery().search(
+    indexed='domain.tld',
+    all_in_anchor='anchor',
+).exclude(
+    in_anchor='scholar'
+)
+
+# return query string
+# query.str = 'site:domain.tld allinanchor:anchor -inanchor:scholar'
+```
+
+#### Bing (many params available on search and exclude methods)
+```python
+from python_advanced_search.bing.query import BingQuery
+
+query = BingQuery().search(
+    indexed='domain.tld',
+    in_text='text_content',
+)
+
+# return query string
+# query.str = 'site:domain.tld inbody:text_content'
+```
+
+
+#### Conditional (available for GoogleQuery and BingQuery)
+```python
+from python_advanced_search.bing.query import BingQuery
+from python_advanced_search.models.commands.conditions import AND
+
+query = BingQuery().search(
+    indexed='domain.tld',
+    in_text=AND('text_content_1', 'text_content_2'),
+)
+
+# return query string
+# query.str = 'site:domain.tld inbody:(text_content_1 AND text_content_2)'
+```
+
+<br/>
+
 ### Operators
 | Command                      | Google                     | Bing               | Common |
 |------------------------------|----------------------------|--------------------|--------|
