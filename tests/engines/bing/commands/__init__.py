@@ -1,9 +1,9 @@
 import unittest
 
 from python_advanced_search.models.commands import Expression
-from python_advanced_search.bing.commands import (
+from python_advanced_search.engines.bing.commands import (
     IndexedUrlCommand,
-    InTextCommand,
+    InBodyCommand,
     LocationCommand,
     LanguageCommand,
     LinkFromDomainCommand,
@@ -24,7 +24,7 @@ class CommandsTestCase(unittest.TestCase):
         )
 
         # InTextCommand
-        command = InTextCommand(expression=expression)
+        command = InBodyCommand(expression=expression)
 
         self.assertEqual(
             command.str,

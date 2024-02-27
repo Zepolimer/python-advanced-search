@@ -14,7 +14,7 @@ class GoogleQuery(Query):
         'define',
     ]
 
-    def search(self, **_operators):
+    def include(self, **_operators):
         """
         Optional keyword arguments:
             - expression        --  (expression)

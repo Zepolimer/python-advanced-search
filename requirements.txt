@@ -1,0 +1,4 @@
+lxml==4.*
+requests
+playwright
+playwright_stealth

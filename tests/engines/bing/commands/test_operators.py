@@ -1,6 +1,6 @@
 import unittest
 
-from python_advanced_search.bing.commands.operators import (
+from python_advanced_search.engines.bing.commands.operators import (
     IndexedUrlOperator,
     InTextOperator,
     LocationOperator,

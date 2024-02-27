@@ -1,5 +1,5 @@
 from python_advanced_search.models.commands import Command
-from python_advanced_search.bing.commands.operators import (
+from python_advanced_search.engines.bing.commands.operators import (
     IndexedUrlOperator,
     InTextOperator,
     LocationOperator,
@@ -25,7 +25,7 @@ class IndexedUrlCommand(Command):
         )
 
 
-class InTextCommand(Command):
+class InBodyCommand(Command):
     """
     Instance of InTextOperator (Bing operator) with <searched value>
 

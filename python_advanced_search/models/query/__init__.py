@@ -1,4 +1,6 @@
-from python_advanced_search.models.commands.expressions import Expression, E
+import urllib.parse
+
+from python_advanced_search.models.commands.expressions import Expression
 from python_advanced_search.models.commands import (
     ExpressionCommand,
     ExactExpressionCommand,
@@ -6,8 +8,15 @@ from python_advanced_search.models.commands import (
     InTitleCommand,
     FiletypeCommand,
 )
-
-from python_advanced_search.google.commands import (
+from python_advanced_search.engines.bing.commands import (
+    IndexedUrlCommand,
+    InBodyCommand,
+    LocationCommand,
+    LanguageCommand,
+    LinkFromDomainCommand,
+    LinkDomainCommand
+)
+from python_advanced_search.engines.google.commands import (
     AllInTitleCommand,
     InTextCommand,
     AllInTextCommand,
@@ -16,16 +25,9 @@ from python_advanced_search.google.commands import (
     InAnchorCommand,
     AllInAnchorCommand,
     RelatedCommand,
-    DefineCommand
+    DefineCommand,
 )
-from python_advanced_search.bing.commands import (
-    IndexedUrlCommand,
-    InTextCommand,
-    LocationCommand,
-    LanguageCommand,
-    LinkFromDomainCommand,
-    LinkDomainCommand
-)
+from python_advanced_search.services.crawler import GoogleRequest, BingRequest
 
 
 class Query:
@@ -47,7 +49,19 @@ class Query:
 
     def __init__(self):
         self.commands = []
-        self.str = ''
+
+    @property
+    def str(self):
+        query = []
+        for command in self.commands:
+            query.append(command.str)
+
+        query_str = ' '.join(query)
+        return query_str
+
+    @property
+    def encoded_str(self):
+        return urllib.parse.urlencode({'q': self.str})
 
     @staticmethod
     def __class_factory(class_name, expr, exclude=False):
@@ -69,13 +83,6 @@ class Query:
             exclude=exclude
         )
 
-    def _join_commands(self):
-        query = []
-        for command in self.commands:
-            query.append(command.str)
-
-        self.str = ' '.join(query)
-
     def _add_commands(self, exclude=False, **_operators):
         """
         Use this method to add command <operator:value>
@@ -92,11 +99,8 @@ class Query:
             except KeyError:
                 raise Exception('--- Class [%s] does not exist ---' % class_name)
 
-        if len(self.commands) > 0:
-            self._join_commands()
-
-    def search(self, **_operators):
-        """ Search for one OR many <expression> or <operator:expression>
+    def include(self, **_operators):
+        """ Include one OR many <expression> or <operator:expression>
 
         Optional keyword arguments:
             - expression        --  expression
@@ -120,3 +124,12 @@ class Query:
 
         self._add_commands(exclude=True, **_operators)
         return self
+
+    def to(self, cls):
+        return cls(self)
+
+    def to_google(self):
+        return self.to(GoogleRequest)
+
+    def to_bing(self):
+        return self.to(BingRequest)

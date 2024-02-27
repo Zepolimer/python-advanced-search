@@ -4,18 +4,18 @@ from python_advanced_search.models.query import Query
 class BingQuery(Query):
     _operators = [
         'url',
-        'in_text',
+        'in_body',
         'location',
         'language',
         'link_from_domain',
         'link_domain',
     ]
 
-    def search(self, **_operators):
+    def include(self, **_operators):
         """
         Optional keyword arguments:
             - url               --  (url:domain.tld)
-            - in_text           --  (inbody:expression)
+            - in_body           --  (inbody:expression)
             - location          --  (location:expression)
             - language          --  (language:url)
             - link_from_domain  --  (linkfromdomain:url)
@@ -38,3 +38,6 @@ class BingQuery(Query):
 
         self._add_commands(exclude=True, **_operators)
         return self
+
+    def search(self):
+        return self.to_bing()

@@ -1,5 +1,5 @@
 from python_advanced_search.models.commands import Command
-from python_advanced_search.google.commands.operators import (
+from python_advanced_search.engines.google.commands.operators import (
     AllInTitleOperator,
     InTextOperator,
     AllInTextOperator,

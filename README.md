@@ -29,10 +29,11 @@ You can use OR, AND, NOT classes which allows you to perform conditional query.
 <br/>
 
 #### Google (many params available on search and exclude methods)
-```python
-from python_advanced_search.google.query import GoogleQuery
 
-query = GoogleQuery().search(
+```python
+from python_advanced_search.engines.google.query import GoogleQuery
+
+query = GoogleQuery().include(
     indexed='domain.tld',
     all_in_anchor='anchor',
 ).exclude(
@@ -44,12 +45,13 @@ query = GoogleQuery().search(
 ```
 
 #### Bing (many params available on search and exclude methods)
-```python
-from python_advanced_search.bing.query import BingQuery
 
-query = BingQuery().search(
+```python
+from python_advanced_search.engines.bing.query import BingQuery
+
+query = BingQuery().include(
     indexed='domain.tld',
-    in_text='text_content',
+    in_body='text_content',
 )
 
 # return query string
@@ -58,13 +60,14 @@ query = BingQuery().search(
 
 
 #### Conditional (available for GoogleQuery and BingQuery)
+
 ```python
-from python_advanced_search.bing.query import BingQuery
+from python_advanced_search.engines.bing.query import BingQuery
 from python_advanced_search.models.commands.conditions import AND
 
-query = BingQuery().search(
+query = BingQuery().include(
     indexed='domain.tld',
-    in_text=AND('text_content_1', 'text_content_2'),
+    in_body=AND('text_content_1', 'text_content_2'),
 )
 
 # return query string

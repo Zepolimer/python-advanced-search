@@ -1,7 +1,7 @@
 import unittest
 
 from python_advanced_search.models.commands import Expression
-from python_advanced_search.google.commands import (
+from python_advanced_search.engines.google.commands import (
     AllInTitleCommand,
     InTextCommand,
     AllInTextCommand,
