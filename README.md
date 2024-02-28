@@ -28,7 +28,7 @@ You can use OR, AND, NOT classes which allows you to perform conditional query.
 
 <br/>
 
-#### Google (many params available on search and exclude methods)
+#### Google (many params available on include and exclude methods)
 
 ```python
 from python_advanced_search.engines.google.query import GoogleQuery
@@ -44,7 +44,7 @@ query = GoogleQuery().include(
 # query.str = 'site:domain.tld allinanchor:anchor -inanchor:scholar'
 ```
 
-#### Bing (many params available on search and exclude methods)
+#### Bing (many params available on include and exclude methods)
 
 ```python
 from python_advanced_search.engines.bing.query import BingQuery

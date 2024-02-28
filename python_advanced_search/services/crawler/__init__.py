@@ -3,11 +3,11 @@ from playwright_stealth import stealth_sync
 
 
 class Response:
-    def __init__(self, status_code, headers, html, error=None):
-        self.status_code = status_code
-        self.headers = headers
-        self.html = html
-        self.error = error
+    def __init__(self):
+        self.status_code = 500
+        self.headers = {}
+        self.html = None
+        self.error = None
 
 
 class Request:
@@ -38,11 +38,7 @@ class Request:
         Try statement using crawler to handle request and get response status_code, headers and html
             :return: Response
         """
-        response = Response(
-            status_code=500,
-            headers={},
-            html=None
-        )
+        response = Response()
 
         try:
             self.crawler.new_page(self.url)
