@@ -6,8 +6,8 @@ from pkg_resources import parse_requirements
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
-# path = Path("requirements.txt")
-# install_requires = [str(ir) for ir in parse_requirements(path.open())]
+path = Path("requirements.txt")
+install_requires = [str(ir) for ir in parse_requirements(path.open())]
 
 setuptools.setup(
     name="python_advanced_search",
@@ -26,5 +26,5 @@ setuptools.setup(
     ],
     python_requires='>=3.8',
     include_package_data=True,
-    # install_requires=install_requires,
+    install_requires=install_requires,
 )
