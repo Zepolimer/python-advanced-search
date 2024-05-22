@@ -1,6 +1,8 @@
 from playwright.sync_api import sync_playwright
 from playwright_stealth import stealth_sync
 
+from python_advanced_search.models.location import Location
+
 
 class Response:
     def __init__(self):
@@ -55,28 +57,28 @@ class Request:
 
 
 class GoogleRequest(Request):
-    def __init__(self, query):
-        """
-        Make a request on Google
-            :param Query query: instance of Query or GoogleQuery
-        """
+    def __init__(self, query, tld=Location.WORLDWIDE):
+        self.domain = 'google%s' % tld.value
 
         super().__init__(
-            crawler=Crawler(),
-            url='https://google.fr/search?%s' % query.encoded_str
+            crawler=Crawler(domain='.%s' % self.domain),
+            url='https://%s/search?%s' % (
+                self.domain,
+                query.encoded_str
+            )
         )
 
 
 class BingRequest(Request):
-    def __init__(self, query):
-        """
-        Make a request on Bing
-            :param Query query: instance of Query or GoogleQuery
-        """
+    def __init__(self, query, tld=Location.WORLDWIDE):
+        self.domain = 'bing%s' % tld.value
 
         super().__init__(
-            crawler=Crawler(domain='.bing.fr'),
-            url='https://bing.fr/search?%s' % query.encoded_str
+            crawler=Crawler(domain='.%s' % self.domain),
+            url='https://%s/search?%s' % (
+                self.domain,
+                query.encoded_str
+            )
         )
 
 
@@ -89,7 +91,7 @@ class CrawlerRequest:
 
 
 class Crawler:
-    def __init__(self, domain='.google.fr'):
+    def __init__(self, domain='.google.com'):
         self.domain = domain
         self.playwright = sync_playwright().start()
         self.browser = self.playwright.chromium.launch(
