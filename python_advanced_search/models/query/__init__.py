@@ -27,6 +27,7 @@ from python_advanced_search.engines.google.commands import (
     RelatedCommand,
     DefineCommand,
 )
+from python_advanced_search.models.location import Location
 from python_advanced_search.services.crawler import GoogleRequest, BingRequest
 
 
@@ -125,11 +126,11 @@ class Query:
         self._add_commands(exclude=True, **_operators)
         return self
 
-    def to(self, cls):
-        return cls(self)
+    def to(self, cls, location=Location.WORLDWIDE):
+        return cls(self, tld=location)
 
-    def to_google(self):
-        return self.to(GoogleRequest)
+    def to_google(self, location=Location.WORLDWIDE):
+        return self.to(GoogleRequest, location)
 
-    def to_bing(self):
-        return self.to(BingRequest)
+    def to_bing(self, location=Location.WORLDWIDE):
+        return self.to(BingRequest, location)

@@ -1,6 +1,7 @@
 import unittest
 from unittest.mock import Mock, patch
 
+from python_advanced_search.models.location import Location
 from python_advanced_search.services.crawler import GoogleRequest
 from python_advanced_search.models.query import Query
 
@@ -21,10 +22,14 @@ class CrawlerTestCase(unittest.TestCase):
         with patch('python_advanced_search.services.crawler.sync_playwright', return_value=mock_playwright):
             request = Query().include(
                 expression='python unittest'
-            ).to(GoogleRequest)
+            ).to(GoogleRequest, Location.FRANCE)
+
+            self.assertEqual(
+                request.url,
+                'https://google.fr/search?q=python+unittest'
+            )
 
             response = request.get()
-
             self.assertEqual(
                 response.html,
                 '<html></html>'
