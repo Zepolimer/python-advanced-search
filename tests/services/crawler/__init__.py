@@ -19,7 +19,10 @@ class CrawlerTestCase(unittest.TestCase):
         mock_playwright = Mock()
         mock_playwright.start().chromium.launch().new_context().new_page = mock_page
 
-        with patch('python_advanced_search.services.crawler.sync_playwright', return_value=mock_playwright):
+        with patch(
+            'python_advanced_search.services.crawler.sync_playwright',
+            return_value=mock_playwright
+        ):
             request = Query().include(
                 expression='python unittest'
             ).to(GoogleRequest, Location.FRANCE)

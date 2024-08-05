@@ -1,7 +1,14 @@
+from enum import Enum
+
 from playwright.sync_api import sync_playwright
 from playwright_stealth import stealth_sync
 
 from python_advanced_search.models.location import Location
+
+
+class BrowserType(Enum):
+    CHROMIUM = 1, 'Chromium'
+    FIREFOX = 1, 'Firefox'
 
 
 class Response:
@@ -61,7 +68,10 @@ class GoogleRequest(Request):
         self.domain = 'google%s' % tld.value
 
         super().__init__(
-            crawler=Crawler(domain='.%s' % self.domain),
+            crawler=Crawler(
+                domain='.%s' % self.domain,
+                browser_type=BrowserType.CHROMIUM
+            ),
             url='https://%s/search?%s' % (
                 self.domain,
                 query.encoded_str
@@ -74,7 +84,10 @@ class BingRequest(Request):
         self.domain = 'bing%s' % tld.value
 
         super().__init__(
-            crawler=Crawler(domain='.%s' % self.domain),
+            crawler=Crawler(
+                domain='.%s' % self.domain,
+                browser_type=BrowserType.FIREFOX
+            ),
             url='https://%s/search?%s' % (
                 self.domain,
                 query.encoded_str
@@ -91,13 +104,19 @@ class CrawlerRequest:
 
 
 class Crawler:
-    def __init__(self, domain='.google.com'):
+    def __init__(self, domain='.google.com', browser_type=BrowserType.CHROMIUM):
         self.domain = domain
         self.playwright = sync_playwright().start()
-        self.browser = self.playwright.chromium.launch(
-            headless=True,
-            args=['--single-process', '--no-zygote', '--no-sandbox']
-        )
+
+        if browser_type == BrowserType.FIREFOX:
+            self.browser = self.playwright.firefox.launch(
+                headless=True,
+            )
+        else:
+            self.browser = self.playwright.chromium.launch(
+                headless=True,
+                args=['--single-process', '--no-zygote', '--no-sandbox']
+            )
 
         self.context = self.browser.new_context()
         self.context.add_cookies([
