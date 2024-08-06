@@ -1,14 +1,13 @@
 import unittest
 
-from python_advanced_search.services.serp import GoogleSerpAnalyzer
+from python_advanced_search.engines.google.serp import GoogleSerpAnalyzer
 
 
-class SerpTestCase(unittest.TestCase):
+class GoogleSerpTestCase(unittest.TestCase):
     def test_serp(self):
-        with open('tests/services/serp/index.html', 'r') as f:
-            google_analyzer = GoogleSerpAnalyzer(f.read())
-
-            serp = google_analyzer.get_serp()
+        with open('tests/engines/google/serp/index.html', 'r') as f:
+            analyzer = GoogleSerpAnalyzer(f.read())
+            serp = analyzer.get_serp()
 
             self.assertEqual(
                 serp.nb_results,

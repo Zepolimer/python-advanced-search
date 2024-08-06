@@ -1,5 +1,7 @@
 import urllib.parse
 
+from python_crawler.crawler import GoogleRequest, BingRequest
+
 from python_advanced_search.models.commands.expressions import Expression
 from python_advanced_search.models.commands import (
     ExpressionCommand,
@@ -28,7 +30,6 @@ from python_advanced_search.engines.google.commands import (
     DefineCommand,
 )
 from python_advanced_search.models.location import Location
-from python_advanced_search.services.crawler import GoogleRequest, BingRequest
 
 
 class Query:

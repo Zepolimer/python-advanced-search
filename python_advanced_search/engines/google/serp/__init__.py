@@ -1,12 +1,8 @@
 import re
-import abc
-
 from abc import ABC
-from lxml.html import document_fromstring
 
 from python_advanced_search.models.serp import (
     LinkType,
-    Serp,
     Video,
     Link,
     MapLink,
@@ -21,17 +17,7 @@ from python_advanced_search.models.serp import (
     RightBlock,
     OtherSearchEngineBlock,
 )
-
-
-class SerpAnalyzer:
-    def __init__(self, html):
-        self.html = html
-        self.document = document_fromstring(self.html)
-        self.serp = Serp()
-
-    @abc.abstractmethod
-    def get_serp(self):
-        """ This method must be implemented"""
+from python_advanced_search.models.serp.analyzer import SerpAnalyzer
 
 
 class GoogleSerpAnalyzer(SerpAnalyzer, ABC):
